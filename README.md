@@ -33,12 +33,12 @@ Continuous Deployment (CD)
 Step 1 - Development
   Developers create or modify:
   
-  - Pipelines
-  - Datasets
-  - Linked Services
-  - Triggers
-  - Data Flows
-  - Global Parameters
+  -- Pipelines
+  -- Datasets
+  -- Linked Services
+  -- Triggers
+  -- Data Flows
+  -- Global Parameters
   within the Development Azure Data Factory.
 
 Step 2 - Source Control
