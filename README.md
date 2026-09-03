@@ -44,9 +44,28 @@ Continuous Deployment (CD)
 
 > GitHub itself cannot deploy resources to Azure unless it authenticates with Azure. The Service Principal is created in Azure AD (Microsoft Entra ID), and this Service Principal serves as the identity that GitHub uses for authentication.
 
-#### Step 2 - Create a Client Secret under the App Registration
+#### Step 2 - Create a Federated Secret under the App Registration
 
-> **Important:** The secret value is displayed only once and cannot be viewed again after leaving the page. Immediately copy and save the secret value.
+> Instead of using a Client Secret, this solution uses GitHub OpenID Connect (OIDC) Federation to securely authenticate GitHub Actions with Microsoft Entra ID.>
+
+> Federated Credentials establish a trust relationship between GitHub and Azure, allowing GitHub Actions workflows to obtain short-lived access tokens directly from Microsoft Entra ID without storing credentials in the repository.
+
+> While creating the Federated Credential, select GitHub Actions Deploying Azure Resources as the federated credential scenario. You will then be prompted to provide the following information:
+
+ - Organization → Enter the GitHub organization name
+ - Organization ID → Retrieve this from _https://api.github.com/users/<Organization Name>_ and look for the id field.
+ - Repository → Enter the repository name
+ - Repository ID → Retrieve this from _https://api.github.com/repos/<Organization Name>/<Repository Name>_ and look for the id field.
+ - If you receive an error and cannot retrieve the Repository ID → This may occur if you are using a personal GitHub account or if the repository is set to Private. Temporarily change the repository visibility from Private to Public, complete the required configuration, and then change the repository visibility back to Private.
+- Entity Type → Select Branch from the dropdown and enter the collaboration branch name in the next field.
+
+##### Benefits of using Federated Credentials:
+
+- Eliminates the need to store Client Secrets in GitHub.
+- Reduces the risk of secret leakage or credential exposure.
+- Removes secret expiration and rotation management.
+- Uses short-lived tokens generated during workflow execution.
+- Follows Microsoft's recommended authentication approach for GitHub Actions.
 
 #### Step 3 - Grant Contributor Access
 
@@ -61,13 +80,11 @@ Configure the following GitHub Secrets before running the workflow:
 | Secret | Description | Location |
 |----------|-------------|------------|
 | AZURE_CLIENT_ID | Service Principal Client Id | App Registration → Overview → Application (client) ID |
-| AZURE_CLIENT_SECRET | Service Principal Secret | App Registration → Certificates & Secrets (Should be collected during Step 2) |
 | AZURE_SUBSCRIPTION_ID | Azure Subscription Id | Subscription → Overview |
 | AZURE_TENANT_ID | Microsoft Entra Tenant Id | App Registration → Overview → Directory (tenant) ID |
 | AZURE_RESOURCEGROUP_NAME | Resource Group Hosting ADF | ADF → Overview |
 | SOURCE_DATA_FACTORY | Source ADF Name | ADF → Overview |
 | DESTINATION_DATA_FACTORY | Destination ADF Name | ADF → Overview |
-| DESTINATION_DATA_FACTORY_LOCATION | Destination ADF Region | ADF → Overview |
 
 #### Step 5 - Build Folder
 
