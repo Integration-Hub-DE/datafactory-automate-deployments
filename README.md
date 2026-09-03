@@ -53,9 +53,9 @@ Continuous Deployment (CD)
 > While creating the Federated Credential, select GitHub Actions Deploying Azure Resources as the federated credential scenario. You will then be prompted to provide the following information:
 
  - Organization → Enter the GitHub organization name
- - Organization ID → Retrieve this from _https://api.github.com/users/<Organization Name>_ and look for the id field.
+ - Organization ID → Retrieve this from _https://api.github.com/users/<Organization_Name>_ and look for the id field.
  - Repository → Enter the repository name
- - Repository ID → Retrieve this from _https://api.github.com/repos/<Organization Name>/<Repository Name>_ and look for the id field.
+ - Repository ID → Retrieve this from _https://api.github.com/repos/<Organization_Name>/<Repository_Name>_ and look for the id field.
  - If you receive an error and cannot retrieve the Repository ID → This may occur if you are using a personal GitHub account or if the repository is set to Private. Temporarily change the repository visibility from Private to Public, complete the required configuration, and then change the repository visibility back to Private.
 - Entity Type → Select Branch from the dropdown and enter the collaboration branch name in the next field.
 
