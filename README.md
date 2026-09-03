@@ -30,6 +30,21 @@ Continuous Deployment (CD)
 
 ## Deployment Workflow
 
+# Required Repository Secrets
+
+Configure the following GitHub Secrets before running the workflow:
+
+| Secret | Description |
+|----------|-------------|
+| AZURE_CLIENT_ID | Service Principal Client Id |
+| AZURE_CLIENT_SECRET | Service Principal Secret |
+| AZURE_SUBSCRIPTION_ID | Azure Subscription Id |
+| AZURE_TENANT_ID | Microsoft Entra Tenant Id |
+| AZURE_RESOURCEGROUP_NAME | Resource Group Hosting ADF |
+| SOURCE_DATA_FACTORY | Source ADF Name |
+| DESTINATION_DATA_FACTORY | Destination ADF Name |
+| DESTINATION_DATA_FACTORY_LOCATION | Target ADF Region |
+
 Step 1 - Development
 
 Developers create or modify:
