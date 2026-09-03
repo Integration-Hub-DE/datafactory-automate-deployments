@@ -1,6 +1,6 @@
 # Data Factory Automatic Deployment using general ARM template
 
-## Overview
+### Overview
 
 This project demonstrates a complete Continuous Integration and Continuous Deployment (CI/CD) implementation for Azure Data Factory (ADF) using GitHub Actions and Azure Resource Manager (ARM) templates.
 
@@ -8,7 +8,7 @@ The solution automates the deployment lifecycle of Azure Data Factory resources 
 
 The objective is to eliminate manual deployment activities and provide a repeatable, version-controlled, and auditable deployment process across environments.
 
-## What This Repository Does
+### What This Repository Does
 The GitHub workflow performs the following actions automatically:
 
 Continuous Integration (CI)
@@ -28,9 +28,9 @@ Continuous Deployment (CD)
 - Updates the target Azure Data Factory environment.
 - Supports environment-specific overrides through deployment parameters and GitHub Secrets.
 
-# Deployment Workflow
+## Deployment Workflow
 
-## Important Prerequisites:
+### Important Prerequisites:
 
 - Source Azure Data Factory using Git integration
 - GitHub repository connected to ADF
@@ -38,21 +38,18 @@ Continuous Deployment (CD)
 - build folder containing package.json
 - ARM template generation enabled
 
-## Create Azure Service Principal
+### Create Azure Service Principal
 
 ### Step 1 - Create an App Registration
 
-1. Open the Azure Portal.
-2. Navigate to:
+1. Open the Azure Portal and Navigate to:
 
    ```text
-   Microsoft Entra ID
-   → App registrations
-   → New registration
+   Microsoft Entra ID → App registrations → New registration
    ```
 
 3. Provide the following:
-   - Name: `GitHub-ADF-CICD`
+   - Name: `<Your SPN Name>`
    - Supported account type: Single tenant (recommended)
 
 4. Select **Register**.
