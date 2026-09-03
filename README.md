@@ -31,33 +31,33 @@ Continuous Deployment (CD)
 ## Deployment Workflow
 
 Step 1 - Development
-  Developers create or modify:
-  
-  -- Pipelines
-  -- Datasets
-  -- Linked Services
-  -- Triggers
-  -- Data Flows
-  -- Global Parameters
-  within the Development Azure Data Factory.
+Developers create or modify:
+
+-- Pipelines
+-- Datasets
+-- Linked Services
+-- Triggers
+-- Data Flows
+-- Global Parameters
+within the Development Azure Data Factory.
 
 Step 2 - Source Control
-  Changes are committed and pushed to the GitHub repository.
+Changes are committed and pushed to the GitHub repository.
 
 Step 3 - Workflow Trigger
-  The GitHub workflow automatically starts when changes are merged into the configured branch.
+The GitHub workflow automatically starts when changes are merged into the configured branch.
 
 Step 4 - Validation
-  ADF build utilities validate the Data Factory structure and verify deployment readiness.
+ADF build utilities validate the Data Factory structure and verify deployment readiness.
 
 Step 5 - ARM Template Generation
-  Deployment-ready ARM templates are generated and stored as workflow artifacts.
+Deployment-ready ARM templates are generated and stored as workflow artifacts.
 
 Step 6 - Deployment
-  The generated ARM template is deployed to the target Azure Data Factory using Azure Resource Manager deployment.
+The generated ARM template is deployed to the target Azure Data Factory using Azure Resource Manager deployment.
 
 Step 7 - Verification
-  Deployment results can be reviewed directly from the GitHub Actions execution logs.
+Deployment results can be reviewed directly from the GitHub Actions execution logs.
 
 ## Repository Secrets
 The workflow uses GitHub Repository Secrets for Azure authentication.
