@@ -30,6 +30,25 @@ Continuous Deployment (CD)
 
 ## Deployment Workflow
 
+Repository pre-requisites Secrets
+
+GitHub itself cannot deploy resources to Azure unless it authenticates with Azure. A Service Principal is created in Azure AD (Microsoft Entra ID), and this Service Principal serves as the identity that GitHub uses for authentication.
+
+Assign the Contributor role to the Service Principal. The GitHub workflow then uses GitHub Repository Secrets to securely authenticate to Azure.
+
+Configure the following GitHub Secrets before running the workflow:
+
+| Secret | Description |
+|----------|-------------|
+| AZURE_CLIENT_ID | Service Principal Client Id |
+| AZURE_CLIENT_SECRET | Service Principal Secret |
+| AZURE_SUBSCRIPTION_ID | Azure Subscription Id |
+| AZURE_TENANT_ID | Microsoft Entra Tenant Id |
+| AZURE_RESOURCEGROUP_NAME | Resource Group Hosting ADF |
+| SOURCE_DATA_FACTORY | Source ADF Name |
+| DESTINATION_DATA_FACTORY | Destination ADF Name |
+| DESTINATION_DATA_FACTORY_LOCATION | Target ADF Region |
+
 Step 1 - Development
 
 Developers create or modify:
@@ -40,6 +59,7 @@ Developers create or modify:
 - Triggers
 - Data Flows
 - Global Parameters
+
 within the Development Azure Data Factory.
 
 Step 2 - Source Control
@@ -66,23 +86,6 @@ Step 7 - Verification
 
 Deployment results can be reviewed directly from the GitHub Actions execution logs.
 
-## Repository Secrets
-The workflow uses GitHub Repository Secrets for Azure authentication.
-
-Configure the following GitHub Secrets before running the workflow:
-
-| Secret | Description |
-|----------|-------------|
-| AZURE_CLIENT_ID | Service Principal Client Id |
-| AZURE_CLIENT_SECRET | Service Principal Secret |
-| AZURE_SUBSCRIPTION_ID | Azure Subscription Id |
-| AZURE_TENANT_ID | Microsoft Entra Tenant Id |
-| AZURE_RESOURCEGROUP_NAME | Resource Group Hosting ADF |
-| SOURCE_DATA_FACTORY | Source ADF Name |
-| DESTINATION_DATA_FACTORY | Destination ADF Name |
-| DESTINATION_DATA_FACTORY_LOCATION | Target ADF Region |
-
-Provide the AZURE_CLIENT_ID as Contributor role on the ADF subscription.
 
 # CICD Deployment Best Practices
 
