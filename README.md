@@ -69,18 +69,17 @@ Configure the following GitHub Secrets before running the workflow:
 | DESTINATION_DATA_FACTORY | Destination ADF Name | ADF → Overview |
 | DESTINATION_DATA_FACTORY_LOCATION | Destination ADF Region | ADF → Overview |
 
----
-
 #### Step 5 - Build Folder
 
 The build folder contains: _package.json_
 
 > GitHub Actions executes npm commands from this location to validate and export ARM templates.
 
+---
 
-# CICD Deployment Best Practices
+## CICD Deployment Best Practices
 
-## Development Factory Only for Git Integration
+#### Development Factory Only for Git Integration
 Use Git integration only for the development Data Factory. Test, UAT, and Production environments should receive changes through the deployment pipeline rather than direct source control integration. This ensures consistency and controlled promotion across environments.
 
 ## Automate Trigger Management During Deployments
@@ -109,28 +108,6 @@ When deploying changes that should not immediately execute in higher environment
 
 ## Support Hotfix Deployments
 For urgent production issues, maintain a controlled hotfix deployment process so that critical fixes can be promoted independently without requiring a full release cycle. 
-
-
-# Current Scope
-This repository focuses on:
-
-- GitHub Actions based CI/CD
-- ARM template generation
-- ARM template deployment
-- Environment parameterization
-- Automated deployment of Azure Data Factory assets
-
-
-Supported Azure Data Factory Resources
-
-- Pipelines
-- Datasets
-- Linked Services
-- Triggers
-- Data Flows
-- Global Parameters
-- Integration Runtime References
-- Managed Private Endpoints (when appropriately parameterized)
 
 
 # Known Limitations
