@@ -36,15 +36,11 @@ jobs:
 
       - name: Validate ARM Template
         working-directory: ./build
-        run: | 
-          npm run build validate "${{ github.workspace }}/adf_publish"
-          "/subscriptions/${{ secrets.AZURE_SUBSCRIPTION_ID }}/resourceGroups/${{ secrets.AZURE_RESOURCEGROUP_NAME }}/providers/Microsoft.DataFactory/factories/${{ secrets.SOURCE_DATA_FACTORY }}"
+        run: npm run build validate "${{ github.workspace }}/adf_publish" "/subscriptions/${{ secrets.AZURE_SUBSCRIPTION_ID }}/resourceGroups/${{ secrets.AZURE_RESOURCEGROUP_NAME }}/providers/Microsoft.DataFactory/factories/${{ secrets.SOURCE_DATA_FACTORY }}"
         
       - name: Generate ARM Template
         working-directory: ./build
-        run: | 
-          npm run build export "${{ github.workspace }}"
-          "/subscriptions/${{ secrets.AZURE_SUBSCRIPTION_ID }}/resourceGroups/${{ secrets.AZURE_RESOURCEGROUP_NAME }}/providers/Microsoft.DataFactory/factories/${{ secrets.SOURCE_DATA_FACTORY }}" "ArmTemplate"
+        run: npm run build export "${{ github.workspace }}" "/subscriptions/${{ secrets.AZURE_SUBSCRIPTION_ID }}/resourceGroups/${{ secrets.AZURE_RESOURCEGROUP_NAME }}/providers/Microsoft.DataFactory/factories/${{ secrets.SOURCE_DATA_FACTORY }}" "ArmTemplate"
 
       - name: Upload ARM Template
         uses: actions/upload-artifact@v4
@@ -56,38 +52,37 @@ jobs:
 # CD Stage - Deploy to Target ADF
 # -------------------
 
-deploy:
+  deploy:
 
-  needs: build
-
-  runs-on: windows-latest
-
-  environment: Toggle-Test
-
-  steps:
-
-  - uses: actions/checkout@v4
-
-  - name: Download ARM Template
-    uses: actions/download-artifact@v4
-    with:
-      name: ArmTemplates
-      path: ArmTemplates
-
-  - name: Azure Login
-    uses: azure/login@v2
-    with:
-      client-id: ${{ secrets.AZURE_CLIENT_ID }}
-      tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-      subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-      client-secret: ${{ secrets.AZURE_CLIENT_SECRET }}
-
-  - name: Deploy ARM Template
-    uses: azure/arm-deploy@v2
-    with:
-      subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-      resourceGroupName: ${{ secrets.AZURE_RESOURCEGROUP_NAME }}
-      template: ArmTemplates/ARMTemplateForFactory.json
-      parameters: | 
-        ArmTemplates/ARMTemplateParametersForFactory.json 
-        factoryName=${{ secrets.DESTINATION_DATA_FACTORY }}
+    needs: build
+  
+    runs-on: windows-latest
+  
+    steps:
+  
+    - uses: actions/checkout@v4
+  
+    - name: Download ARM Template
+      uses: actions/download-artifact@v4
+      with:
+        name: ArmTemplates
+        path: ArmTemplates
+  
+    - name: Azure Login
+      uses: azure/login@v2
+      with:
+        client-id: ${{ secrets.AZURE_CLIENT_ID }}
+        tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+        subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+        client-secret: ${{ secrets.AZURE_CLIENT_SECRET }}
+  
+    - name: Deploy ARM Template
+      uses: azure/arm-deploy@v2
+      with:
+        scope: resourcegroup
+        subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+        resourceGroupName: ${{ secrets.AZURE_RESOURCEGROUP_NAME }}
+        location: ${{ secrets.DESTINATION_DATA_FACTORY_LOCAITION }}
+        template: ArmTemplates/ARMTemplateForFactory.json
+        parameters: ArmTemplates/ARMTemplateParametersForFactory.json factoryName=${{ secrets.DESTINATION_DATA_FACTORY }}
+        deploymentMode: Incremental
