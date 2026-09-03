@@ -38,18 +38,21 @@ Continuous Deployment (CD)
 - build folder containing package.json
 - ARM template generation enabled
 
-### Create Azure Service Principal
+---
 
 #### Step 1 - Create an App Registration on the Azure Portal
+
+> GitHub itself cannot deploy resources to Azure unless it authenticates with Azure. The Service Principal is created in Azure AD (Microsoft Entra ID), and this Service Principal serves as the identity that GitHub uses for authentication.
+
 #### Step 2 - Create a Client Secret under the App Registration
 
 > **Important:** The secret value is displayed only once and cannot be viewed again after leaving the page. Immediately copy and save the secret value.
 
-### Step 3 - Grant Contributor Access
+#### Step 3 - Grant Contributor Access
 
 > The Service Principal must have permissions to deploy Azure Data Factory resources.
 
-### Step 4 - Collect Required Values
+#### Step 4 - Collect Required Values
 
 The following values will be required by the GitHub workflow.
 
@@ -60,9 +63,7 @@ The following values will be required by the GitHub workflow.
 | Azure Client Secret | App Registration → Certificates & Secrets (Should be collected during Step 2) |
 | Azure Subscription ID | Subscription → Overview |
 
-### Step 5 - Configure GitHub Repository Secrets
-
-GitHub itself cannot deploy resources to Azure unless it authenticates with Azure. The Service Principal is created above in Azure AD (Microsoft Entra ID), and this Service Principal serves as the identity that GitHub uses for authentication.
+#### Step 5 - Configure GitHub Repository Secrets
 
 Configure the following GitHub Secrets before running the workflow:
 
@@ -79,12 +80,7 @@ Configure the following GitHub Secrets before running the workflow:
 
 ---
 
-
-
-
-
-
-## Build Folder
+#### Step 6 - Build Folder
 
 The build folder contains:
 
