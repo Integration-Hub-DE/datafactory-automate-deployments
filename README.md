@@ -38,6 +38,150 @@ Continuous Deployment (CD)
 - build folder containing package.json
 - ARM template generation enabled
 
+## Create Azure Service Principal
+
+### Step 1 - Create an App Registration
+
+1. Open the Azure Portal.
+2. Navigate to:
+
+   ```text
+   Microsoft Entra ID
+   → App registrations
+   → New registration
+   ```
+
+3. Provide the following:
+   - Name: `GitHub-ADF-CICD`
+   - Supported account type: Single tenant (recommended)
+
+4. Select **Register**.
+
+---
+
+### Step 2 - Create a Client Secret
+
+1. Open the newly created App Registration.
+2. Navigate to:
+
+   ```text
+   Certificates & Secrets
+   → Client Secrets
+   → New Client Secret
+   ```
+
+3. Enter:
+   - Description: `GitHub ADF Deployment Secret`
+   - Expiration: According to your organization's policy
+
+4. Select **Add**.
+
+5. Immediately copy and save the secret value.
+
+> **Important:** The secret value is displayed only once and cannot be viewed again after leaving the page.
+
+---
+
+### Step 3 - Grant Contributor Access
+
+The Service Principal must have permissions to deploy Azure Data Factory resources.
+
+1. Navigate to:
+
+   ```text
+   Subscription
+   → Access Control (IAM)
+   → Add Role Assignment
+   ```
+
+2. Select:
+
+   ```text
+   Role: Contributor
+   ```
+
+3. Select:
+
+   ```text
+   Assign access to:
+   User, Group or Service Principal
+   ```
+
+4. Search for the App Registration created earlier.
+
+5. Select **Review + Assign**.
+
+> Alternatively, Contributor access can be granted at the Resource Group level if deployment should be limited to a specific environment.
+
+---
+
+### Step 4 - Collect Required Values
+
+The following values will be required by the GitHub workflow.
+
+| Value | Location |
+|---------|---------|
+| Azure Client ID | App Registration → Overview → Application (client) ID |
+| Azure Tenant ID | App Registration → Overview → Directory (tenant) ID |
+| Azure Client Secret | App Registration → Certificates & Secrets |
+| Azure Subscription ID | Subscription → Overview |
+
+---
+
+### Step 5 - Configure GitHub Repository Secrets
+
+Navigate to:
+
+```text
+GitHub Repository
+→ Settings
+→ Secrets and variables
+→ Actions
+```
+
+Create the following repository secrets:
+
+| Secret Name | Description |
+|------------|-------------|
+| AZURE_CLIENT_ID | Application (Client) ID |
+| AZURE_CLIENT_SECRET | Client Secret Value |
+| AZURE_TENANT_ID | Directory (Tenant) ID |
+| AZURE_SUBSCRIPTION_ID | Azure Subscription ID |
+| AZURE_RESOURCEGROUP_NAME | Resource Group hosting Azure Data Factory |
+| SOURCE_DATA_FACTORY | Source Azure Data Factory Name |
+| DESTINATION_DATA_FACTORY | Destination Azure Data Factory Name |
+| DESTINATION_DATA_FACTORY_LOCATION | Deployment Location |
+
+---
+
+### Authentication Flow
+
+```text
+GitHub Actions
+      |
+      v
+Azure Service Principal
+      |
+      v
+Microsoft Entra ID Authentication
+      |
+      v
+Azure Subscription
+      |
+      v
+Azure Resource Group
+      |
+      v
+Azure Data Factory Deployment
+```
+
+
+
+
+
+
+
+
 ## Build Folder
 
 The build folder contains:
