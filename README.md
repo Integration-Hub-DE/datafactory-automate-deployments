@@ -1,6 +1,6 @@
 # Data Factory Automatic Deployment using general ARM template
 
-Overview
+## Overview
 
 This project demonstrates a complete Continuous Integration and Continuous Deployment (CI/CD) implementation for Azure Data Factory (ADF) using GitHub Actions and Azure Resource Manager (ARM) templates.
 
@@ -69,37 +69,41 @@ Deployment results can be reviewed directly from the GitHub Actions execution lo
 ## Repository Secrets
 The workflow uses GitHub Repository Secrets for Azure authentication.
 
-# Best Practices
+
+# CICD Deployment Best Practices
 
 ## Development Factory Only for Git Integration
-Use Git integration only for the development Data Factory. Test, UAT, and Production environments should receive changes through the deployment pipeline rather than direct source control integration. This ensures consistency and controlled promotion across environments. citeturn17search24
+Use Git integration only for the development Data Factory. Test, UAT, and Production environments should receive changes through the deployment pipeline rather than direct source control integration. This ensures consistency and controlled promotion across environments.
 
 ## Automate Trigger Management During Deployments
-Triggers may need to be stopped before deployment and restarted after deployment to avoid deployment failures and unintended executions. Microsoft provides deployment scripts that can automate trigger handling and cleanup activities during CI/CD processes. citeturn17search23turn17search24
+Triggers may need to be stopped before deployment and restarted after deployment to avoid deployment failures and unintended executions. Microsoft provides deployment scripts that can automate trigger handling and cleanup activities during CI/CD processes.
 
 ## Maintain Consistent Integration Runtime Configuration
-When promoting resources across environments, Integration Runtime names, types, and configurations should remain consistent. This is especially important for Self-Hosted Integration Runtime deployments across Development, Test, and Production environments. citeturn17search24
+When promoting resources across environments, Integration Runtime names, types, and configurations should remain consistent. This is especially important for Self-Hosted Integration Runtime deployments across Development, Test, and Production environments.
 
 ## Parameterize Environment-Specific Settings
 Resources such as Data Factory names, Key Vault names, endpoints, and connection configurations should be parameterized to enable seamless deployments across multiple environments.
 
 ## Use Dedicated Key Vaults per Environment
-Store secrets in environment-specific Azure Key Vaults and reference them through deployment parameters. Keeping secret names consistent across environments simplifies deployment and reduces configuration complexity. citeturn17search24
+Store secrets in environment-specific Azure Key Vaults and reference them through deployment parameters. Keeping secret names consistent across environments simplifies deployment and reduces configuration complexity.
 
 ## Include Global Parameters in ARM Templates
+Global Parameters should be included in ARM template deployments to ensure configuration consistency across environments and simplify CI/CD implementations. 
 
-Global Parameters should be included in ARM template deployments to ensure configuration consistency across environments and simplify CI/CD implementations. citeturn17search25
-Follow Consistent Naming Standards
+## Follow Consistent Naming Standards
 Avoid spaces in ADF resource names. Prefer using underscores (_) or hyphens (-) for improved compatibility and maintainability.
-Keep the Repository Clean
+
+## Keep the Repository Clean
 Only maintain files required for Azure Data Factory source control and deployment. Unnecessary backup or temporary files may lead to repository maintenance issues and deployment complications.
-Use Controlled Feature Rollout Strategies
-When deploying changes that should not immediately execute in higher environments, consider feature toggles or environment-driven logic using Global Parameters and conditional execution patterns. This enables deployment without immediate exposure of new functionality. citeturn17search21turn17search22turn17search25
-Support Hotfix Deployments
-For urgent production issues, maintain a controlled hotfix deployment process so that critical fixes can be promoted independently without requiring a full release cycle. citeturn17search20
+
+## Use Controlled Feature Rollout Strategies
+When deploying changes that should not immediately execute in higher environments, consider feature toggles or environment-driven logic using Global Parameters and conditional execution patterns. This enables deployment without immediate exposure of new functionality.
+
+## Support Hotfix Deployments
+For urgent production issues, maintain a controlled hotfix deployment process so that critical fixes can be promoted independently without requiring a full release cycle. 
 
 
-Current Scope
+# Current Scope
 This repository focuses on:
 
 - GitHub Actions based CI/CD
@@ -121,20 +125,15 @@ Supported Azure Data Factory Resources
 - Managed Private Endpoints (when appropriately parameterized)
 
 
-Known Limitations
-Selective Deployment Is Not Supported
-Azure Data Factory deployments operate on the complete factory metadata. Deployments are intended to promote the entire validated factory state rather than individual resources. Microsoft recommends using a dedicated hotfix process for exceptional production scenarios. citeturn17search20
-Publishing from Non-Collaboration Branches
+# Known Limitations
+
+## Selective Deployment Is Not Supported
+Azure Data Factory deployments operate on the complete factory metadata. Deployments are intended to promote the entire validated factory state rather than individual resources. Microsoft recommends using a dedicated hotfix process for exceptional production scenarios.
+
+## Publishing from Non-Collaboration Branches
 Publishing and deployment processes are designed around the configured collaboration branch strategy and not private development branches. citeturn17search24
-Resource Dependency Requirements
+
+## Resource Dependency Requirements
 ADF resources are highly interconnected. Pipelines, datasets, triggers, and linked services have dependency relationships that must remain intact during deployments.
 
-
-References
-
-- Azure Data Factory CI/CD Guidance
-- ARM Template Based Deployments
-- GitHub Actions
-- Azure Resource Manager Deployments
-- Azure Key Vault Integration
-- Global Parameters in Azure Data Factory
+# References
