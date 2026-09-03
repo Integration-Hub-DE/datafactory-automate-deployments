@@ -8,7 +8,7 @@ The solution automates the deployment lifecycle of Azure Data Factory resources 
 
 The objective is to eliminate manual deployment activities and provide a repeatable, version-controlled, and auditable deployment process across environments.
 
-### What This Repository Does
+### What The Workflow Does
 The GitHub workflow performs the following actions automatically:
 
 Continuous Integration (CI)
