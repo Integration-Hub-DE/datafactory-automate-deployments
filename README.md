@@ -38,7 +38,7 @@ Continuous Deployment (CD)
 - build folder containing package.json
 - ARM template generation enabled
 
-### Create Azure Service Principal
+#### Create Azure Service Principal
 
 ### Step 1 - Create an App Registration
 
