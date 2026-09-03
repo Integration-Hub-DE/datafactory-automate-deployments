@@ -1,4 +1,4 @@
-## Data Factory Automatic Deployment using general ARM template
+# Data Factory Automatic Deployment using general ARM template
 
 Overview
 
@@ -7,10 +7,10 @@ This project demonstrates a complete Continuous Integration and Continuous Deplo
 The solution automates the deployment lifecycle of Azure Data Factory resources using general ARM Templates by validating ADF artifacts, generating ARM templates, storing deployment artifacts, and deploying changes to a target Data Factory environment whenever changes are merged into the repository's master branch.
 
 The objective is to eliminate manual deployment activities and provide a repeatable, version-controlled, and auditable deployment process across environments.
----
 
-What This Repository Does
+## What This Repository Does
 The GitHub workflow performs the following actions automatically:
+
 Continuous Integration (CI)
 
 - Checks out the GitHub repository.
@@ -19,6 +19,7 @@ Continuous Integration (CI)
 - Performs ARM template validation.
 - Generates deployment-ready ARM templates.
 - Publishes ARM templates as build artifacts.
+
 Continuous Deployment (CD)
 
 - Downloads generated deployment artifacts.
@@ -27,9 +28,10 @@ Continuous Deployment (CD)
 - Updates the target Azure Data Factory environment.
 - Supports environment-specific overrides through deployment parameters and GitHub Secrets.
 
+## Deployment Workflow
 
-Deployment Workflow
 Step 1 - Development
+
 Developers create or modify:
 
 - Pipelines
@@ -39,44 +41,53 @@ Developers create or modify:
 - Data Flows
 - Global Parameters
 within the Development Azure Data Factory.
+
 Step 2 - Source Control
+
 Changes are committed and pushed to the GitHub repository.
+
 Step 3 - Workflow Trigger
+
 The GitHub workflow automatically starts when changes are merged into the configured branch.
+
 Step 4 - Validation
+
 ADF build utilities validate the Data Factory structure and verify deployment readiness.
+
 Step 5 - ARM Template Generation
+
 Deployment-ready ARM templates are generated and stored as workflow artifacts.
+
 Step 6 - Deployment
+
 The generated ARM template is deployed to the target Azure Data Factory using Azure Resource Manager deployment.
+
 Step 7 - Verification
+
 Deployment results can be reviewed directly from the GitHub Actions execution logs.
 
-
-Repository Secrets
+## Repository Secrets
 The workflow uses GitHub Repository Secrets for Azure authentication.
-Required secrets:
-Secret Name	Description
-AZURE_CLIENT_ID	Service Principal Client ID
-AZURE_CLIENT_SECRET	Service Principal Secret
-AZURE_TENANT_ID	Microsoft Entra Tenant ID
-AZURE_SUBSCRIPTION_ID	Azure Subscription ID
-DESTINATION_DATA_FACTORY	Target Data Factory Name
 
+# Best Practices
 
-
-Best Practices
-Development Factory Only for Git Integration
+## Development Factory Only for Git Integration
 Use Git integration only for the development Data Factory. Test, UAT, and Production environments should receive changes through the deployment pipeline rather than direct source control integration. This ensures consistency and controlled promotion across environments. citeturn17search24
-Automate Trigger Management During Deployments
+
+## Automate Trigger Management During Deployments
 Triggers may need to be stopped before deployment and restarted after deployment to avoid deployment failures and unintended executions. Microsoft provides deployment scripts that can automate trigger handling and cleanup activities during CI/CD processes. citeturn17search23turn17search24
-Maintain Consistent Integration Runtime Configuration
+
+## Maintain Consistent Integration Runtime Configuration
 When promoting resources across environments, Integration Runtime names, types, and configurations should remain consistent. This is especially important for Self-Hosted Integration Runtime deployments across Development, Test, and Production environments. citeturn17search24
-Parameterize Environment-Specific Settings
+
+## Parameterize Environment-Specific Settings
 Resources such as Data Factory names, Key Vault names, endpoints, and connection configurations should be parameterized to enable seamless deployments across multiple environments.
-Use Dedicated Key Vaults per Environment
+
+## Use Dedicated Key Vaults per Environment
 Store secrets in environment-specific Azure Key Vaults and reference them through deployment parameters. Keeping secret names consistent across environments simplifies deployment and reduces configuration complexity. citeturn17search24
-Include Global Parameters in ARM Templates
+
+## Include Global Parameters in ARM Templates
+
 Global Parameters should be included in ARM template deployments to ensure configuration consistency across environments and simplify CI/CD implementations. citeturn17search25
 Follow Consistent Naming Standards
 Avoid spaces in ADF resource names. Prefer using underscores (_) or hyphens (-) for improved compatibility and maintainability.
