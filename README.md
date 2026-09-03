@@ -54,7 +54,9 @@ Continuous Deployment (CD)
 
 #### Step 4 - Configure GitHub Repository Secrets
 
-Configure the following GitHub Secrets before running the workflow: Repository → Settings → Secrets and Variables → Actions
+Configure the following GitHub Secrets before running the workflow: 
+
+> Repository → Settings → Secrets and Variables → Actions
 
 | Secret | Description | Location |
 |----------|-------------|------------|
@@ -71,7 +73,7 @@ Configure the following GitHub Secrets before running the workflow: Repository �
 
 #### Step 5 - Build Folder
 
-The build folder contains: > package.json
+The build folder contains: _package.json_
 
 > GitHub Actions executes npm commands from this location to validate and export ARM templates.
 
