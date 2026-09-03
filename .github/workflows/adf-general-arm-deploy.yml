@@ -1,5 +1,3 @@
-name: CI
-
 # Controls when the workflow will run
 on:
   # Triggers the workflow on push or pull request events but only for the "<branch-name>" branch
@@ -32,7 +30,7 @@ jobs:
 
       - name: Validate ARM Template
         working-directory: ./build
-        run: npm run build validate "${{ github.workspace }}/adf_publish" "/subscriptions/${{ secrets.AZURE_SUBSCRIPTION_ID }}/resourceGroups/${{ secrets.AZURE_RESOURCEGROUP_NAME }}/providers/Microsoft.DataFactory/factories/${{ secrets.SOURCE_DATA_FACTORY }}"
+        run: npm run build validate "${{ github.workspace }}" "/subscriptions/${{ secrets.AZURE_SUBSCRIPTION_ID }}/resourceGroups/${{ secrets.AZURE_RESOURCEGROUP_NAME }}/providers/Microsoft.DataFactory/factories/${{ secrets.SOURCE_DATA_FACTORY }}"
         
       - name: Generate ARM Template
         working-directory: ./build
