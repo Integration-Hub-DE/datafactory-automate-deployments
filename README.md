@@ -82,43 +82,41 @@ The build folder contains: _package.json_
 #### Development Factory Only for Git Integration
 Use Git integration only for the development Data Factory. Test, UAT, and Production environments should receive changes through the deployment pipeline rather than direct source control integration. This ensures consistency and controlled promotion across environments.
 
-## Automate Trigger Management During Deployments
+#### Automate Trigger Management During Deployments
 Triggers may need to be stopped before deployment and restarted after deployment to avoid deployment failures and unintended executions. Microsoft provides deployment scripts that can automate trigger handling and cleanup activities during CI/CD processes.
 
-## Maintain Consistent Integration Runtime Configuration
+#### Maintain Consistent Integration Runtime Configuration
 When promoting resources across environments, Integration Runtime names, types, and configurations should remain consistent. This is especially important for Self-Hosted Integration Runtime deployments across Development, Test, and Production environments.
 
-## Parameterize Environment-Specific Settings
+#### Parameterize Environment-Specific Settings
 Resources such as Data Factory names, Key Vault names, endpoints, and connection configurations should be parameterized to enable seamless deployments across multiple environments.
 
-## Use Dedicated Key Vaults per Environment
 Store secrets in environment-specific Azure Key Vaults and reference them through deployment parameters. Keeping secret names consistent across environments simplifies deployment and reduces configuration complexity.
 
-## Include Global Parameters in ARM Templates
+#### Include Global Parameters in ARM Templates
 Global Parameters should be included in ARM template deployments to ensure configuration consistency across environments and simplify CI/CD implementations. 
 
-## Follow Consistent Naming Standards
+#### Follow Consistent Naming Standards
 Avoid spaces in ADF resource names. Prefer using underscores (_) or hyphens (-) for improved compatibility and maintainability.
 
-## Keep the Repository Clean
+#### Keep the Repository Clean
 Only maintain files required for Azure Data Factory source control and deployment. Unnecessary backup or temporary files may lead to repository maintenance issues and deployment complications.
 
-## Use Controlled Feature Rollout Strategies
+#### Use Controlled Feature Rollout Strategies
 When deploying changes that should not immediately execute in higher environments, consider feature toggles or environment-driven logic using Global Parameters and conditional execution patterns. This enables deployment without immediate exposure of new functionality.
 
-## Support Hotfix Deployments
+#### Support Hotfix Deployments
 For urgent production issues, maintain a controlled hotfix deployment process so that critical fixes can be promoted independently without requiring a full release cycle. 
 
 
-# Known Limitations
+## Known Limitations
 
-## Selective Deployment Is Not Supported
+#### Selective Deployment Is Not Supported
 Azure Data Factory deployments operate on the complete factory metadata. Deployments are intended to promote the entire validated factory state rather than individual resources. Microsoft recommends using a dedicated hotfix process for exceptional production scenarios.
 
-## Publishing from Non-Collaboration Branches
+#### Publishing from Non-Collaboration Branches
 Publishing and deployment processes are designed around the configured collaboration branch strategy and not private development branches.
 
-## Resource Dependency Requirements
+#### Resource Dependency Requirements
 ADF resources are highly interconnected. Pipelines, datasets, triggers, and linked services have dependency relationships that must remain intact during deployments.
 
-# References
