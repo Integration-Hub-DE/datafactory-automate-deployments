@@ -73,12 +73,15 @@ deploy:
   - name: Azure Login
     uses: azure/login@v2
     with:
-      creds: ${{ secrets.AZURE_CREDENTIALS }}
+      client-id: ${{ secrets.AZURE_CLIENT_ID }}
+      tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+      subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+      client-secret: ${{ secrets.AZURE_CLIENT_SECRET }}
 
   - name: Deploy ARM Template
     uses: azure/arm-deploy@v2
     with:
-      subscriptionId: ${{ secrets.Azure_Subscription_ID }}
+      subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
       resourceGroupName: Primary_Group
       template: ArmTemplates/ARMTemplateForFactory.json
       parameters: | ArmTemplates/ARMTemplateParametersForFactory.json factoryName=Toggle-Test
