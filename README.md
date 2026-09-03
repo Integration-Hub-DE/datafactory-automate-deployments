@@ -28,9 +28,27 @@ Continuous Deployment (CD)
 - Updates the target Azure Data Factory environment.
 - Supports environment-specific overrides through deployment parameters and GitHub Secrets.
 
-## Deployment Workflow
+# Deployment Workflow
 
-Repository pre-requisites Secrets
+## Important Prerequisites:
+
+- Source Azure Data Factory using Git integration
+- GitHub repository connected to ADF
+- Service Principal with Contributor access
+- build folder containing package.json
+- ARM template generation enabled
+
+## Build Folder
+
+The build folder contains:
+
+- package.json
+- ADF Utilities package
+- Build and export commands used for ARM generation
+
+GitHub Actions executes npm commands from this location to validate and export ARM templates.
+
+## Repository Secrets
 
 GitHub itself cannot deploy resources to Azure unless it authenticates with Azure. A Service Principal is created in Azure AD (Microsoft Entra ID), and this Service Principal serves as the identity that GitHub uses for authentication.
 
