@@ -131,7 +131,7 @@ Supported Azure Data Factory Resources
 Azure Data Factory deployments operate on the complete factory metadata. Deployments are intended to promote the entire validated factory state rather than individual resources. Microsoft recommends using a dedicated hotfix process for exceptional production scenarios.
 
 ## Publishing from Non-Collaboration Branches
-Publishing and deployment processes are designed around the configured collaboration branch strategy and not private development branches. citeturn17search24
+Publishing and deployment processes are designed around the configured collaboration branch strategy and not private development branches.
 
 ## Resource Dependency Requirements
 ADF resources are highly interconnected. Pipelines, datasets, triggers, and linked services have dependency relationships that must remain intact during deployments.
