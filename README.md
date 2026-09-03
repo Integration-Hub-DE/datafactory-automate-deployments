@@ -52,43 +52,28 @@ Continuous Deployment (CD)
 
 > The Service Principal must have permissions to deploy Azure Data Factory resources.
 
-#### Step 4 - Collect Required Values
-
-The following values will be required by the GitHub workflow.
-
-| Value | Location |
-|---------|---------|
-| Azure Client ID | App Registration → Overview → Application (client) ID |
-| Azure Tenant ID | App Registration → Overview → Directory (tenant) ID |
-| Azure Client Secret | App Registration → Certificates & Secrets (Should be collected during Step 2) |
-| Azure Subscription ID | Subscription → Overview |
-
-#### Step 5 - Configure GitHub Repository Secrets
+#### Step 4 - Configure GitHub Repository Secrets
 
 Configure the following GitHub Secrets before running the workflow:
 
-| Secret | Description |
-|----------|-------------|
-| AZURE_CLIENT_ID | Service Principal Client Id |
-| AZURE_CLIENT_SECRET | Service Principal Secret |
-| AZURE_SUBSCRIPTION_ID | Azure Subscription Id |
-| AZURE_TENANT_ID | Microsoft Entra Tenant Id |
-| AZURE_RESOURCEGROUP_NAME | Resource Group Hosting ADF |
-| SOURCE_DATA_FACTORY | Source ADF Name |
-| DESTINATION_DATA_FACTORY | Destination ADF Name |
-| DESTINATION_DATA_FACTORY_LOCATION | Destination ADF Region |
+| Secret | Description | Location |
+|----------|-------------|------------|
+| AZURE_CLIENT_ID | Service Principal Client Id | App Registration → Overview → Application (client) ID |
+| AZURE_CLIENT_SECRET | Service Principal Secret | App Registration → Certificates & Secrets (Should be collected during Step 2) |
+| AZURE_SUBSCRIPTION_ID | Azure Subscription Id | Subscription → Overview |
+| AZURE_TENANT_ID | Microsoft Entra Tenant Id | App Registration → Overview → Directory (tenant) ID |
+| AZURE_RESOURCEGROUP_NAME | Resource Group Hosting ADF | ADF → Overview |
+| SOURCE_DATA_FACTORY | Source ADF Name | ADF → Overview |
+| DESTINATION_DATA_FACTORY | Destination ADF Name | ADF → Overview |
+| DESTINATION_DATA_FACTORY_LOCATION | Destination ADF Region | ADF → Overview |
 
 ---
 
-#### Step 6 - Build Folder
+#### Step 5 - Build Folder
 
-The build folder contains:
+The build folder contains: > package.json
 
-- package.json
-- ADF Utilities package
-- Build and export commands used for ARM generation
-
-GitHub Actions executes npm commands from this location to validate and export ARM templates.
+> GitHub Actions executes npm commands from this location to validate and export ARM templates.
 
 
 # CICD Deployment Best Practices
