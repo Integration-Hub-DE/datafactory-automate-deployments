@@ -54,7 +54,7 @@ Continuous Deployment (CD)
 
 #### Step 4 - Configure GitHub Repository Secrets
 
-Configure the following GitHub Secrets before running the workflow:
+Configure the following GitHub Secrets before running the workflow: Repository → Settings → Secrets and Variables → Actions
 
 | Secret | Description | Location |
 |----------|-------------|------------|
