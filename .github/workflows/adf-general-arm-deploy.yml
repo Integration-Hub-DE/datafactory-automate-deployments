@@ -1,36 +1,84 @@
-# This is a basic workflow to help you get started with Actions
-
 name: CI
 
 # Controls when the workflow will run
 on:
   # Triggers the workflow on push or pull request events but only for the "main" branch
   push:
-    branches: [ "main" ]
+    branches: [ "master" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "master" ]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
+  # -------------------
+  # CI Stage - Validate ARM Template
+  # -------------------  
   build:
     # The type of runner that the job will run on
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v4
 
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
+      #- name: Setup Node.js
+      #  uses: actions/setup-node@v4
+      #  with:
+      #    node-version: '18'
+      
+      - name: Install npm package
+        working-directory: ./build
+        run: npm install
 
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
-        run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+      - name: Validate ARM Template
+        working-directory: ./build
+        run: | npm run build validate "${{ github.workspace }}/adf_publish" "/subscriptions/8b0b2e24-f3b3-4196-82de-72c9592eae1d/resourceGroups/Primary_Group/providers/Microsoft.DataFactory/factories/Mah-Secondary-ADF"
+        
+      - name: Generate ARM Template
+        working-directory: ./build
+        run: | npm run build export "${{ github.workspace }}" "/subscriptions/8b0b2e24-f3b3-4196-82de-72c9592eae1d/resourceGroups/Primary_Group/providers/Microsoft.DataFactory/factories/Mah-Primary-ADF" "ArmTemplate"
+
+      - name: Upload ARM Template
+        uses: actions/upload-artifact@v4
+        with:
+          name: ArmTemplates
+          path: build/ArmTemplate
+
+# -------------------
+# CD Stage - Deploy to Target ADF
+# -------------------
+
+deploy:
+
+  needs: build
+
+  runs-on: windows-latest
+
+  environment: Toggle-Test
+
+  steps:
+
+  - uses: actions/checkout@v4
+
+  - name: Download ARM Template
+    uses: actions/download-artifact@v4
+    with:
+      name: ArmTemplates
+      path: ArmTemplates
+
+  - name: Azure Login
+    uses: azure/login@v2
+    with:
+      creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+  - name: Deploy ARM Template
+    uses: azure/arm-deploy@v2
+    with:
+      subscriptionId: ${{ secrets.Azure_Subscription_ID }}
+      resourceGroupName: Primary_Group
+      template: ArmTemplates/ARMTemplateForFactory.json
+      parameters: | ArmTemplates/ARMTemplateParametersForFactory.json factoryName=Toggle-Test
