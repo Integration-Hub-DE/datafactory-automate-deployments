@@ -47,7 +47,7 @@ Configure the following GitHub Secrets before running the workflow:
 | AZURE_RESOURCEGROUP_NAME | Resource Group Hosting ADF |
 | SOURCE_DATA_FACTORY | Source ADF Name |
 | DESTINATION_DATA_FACTORY | Destination ADF Name |
-| DESTINATION_DATA_FACTORY_LOCATION | Target ADF Region |
+| DESTINATION_DATA_FACTORY_LOCATION | Destination ADF Region |
 
 Step 1 - Development
 
