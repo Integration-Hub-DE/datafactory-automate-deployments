@@ -1,1 +1,1 @@
-# Data Factory Automatic Deployment using GitHub
+## Data Factory Automatic Deployment using general ARM template
