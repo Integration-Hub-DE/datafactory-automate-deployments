@@ -60,6 +60,7 @@ Continuous Deployment (CD)
 - Entity Type (When approvals are not configured through GitHub Environments) → Select Branch from the dropdown and enter the collaboration branch name in the next field.
 - Entity Type (When approvals are configured through GitHub Environments) → Select Environment from the dropdown and enter the environment name in the next field.
 > When deployment approvals are enabled through GitHub Environments, create an Environment with the same name referenced in the workflow (for example, `Production`) under: Repository Settings → Environments
+
 > Configure the required reviewers and protection rules. The workflow will pause before the Continuous Delivery stage and wait for approval before deploying to the destination Azure Data Factory.
 
 ##### Benefits of using Federated Credentials:
