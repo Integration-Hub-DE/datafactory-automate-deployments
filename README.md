@@ -75,6 +75,8 @@ Continuous Deployment (CD)
 
 > The Service Principal must have permissions to deploy Azure Data Factory resources.
 
+> Required Contributor role at the target Resource Group, Subscription, or another appropriate deployment scope. 
+
 #### Step 4 - Configure GitHub Repository Secrets
 
 Configure the following GitHub Secrets before running the workflow: 
