@@ -1,10 +1,10 @@
-# Data Factory Automatic Deployment using ARM template (ARMTemplateForFactory and ARMTemplateParametersForFactory)
+# Azure Data Factory Automatic Deployment using ARM template (ARMTemplateForFactory and ARMTemplateParametersForFactory)
 
 ### Overview
 
 This project demonstrates a complete Continuous Integration and Continuous Deployment (CI/CD) implementation for Azure Data Factory (ADF) using GitHub Actions and Azure Resource Manager (ARM) templates.
 
-The solution automates the deployment lifecycle of Azure Data Factory resources using ARM Templates by validating ADF artifacts, generating ARM templates, storing deployment artifacts locally, and deploying changes to a target Data Factory environment whenever changes are merged into the repository's master branch.
+The solution automates the deployment lifecycle of Azure Data Factory resources using ARM Templates by validating ADF artifacts, generating ARM templates, storing deployment artifacts locally, and deploying changes to a target Data Factory environment whenever changes are merged into the configured collaboration branch.
 
 The objective is to eliminate manual deployment activities and provide a repeatable, version-controlled, and auditable deployment process across environments.
 
@@ -44,7 +44,7 @@ Continuous Deployment (CD)
 
 > GitHub itself cannot deploy resources to Azure unless it authenticates with Azure. The Service Principal is created in Azure AD (Microsoft Entra ID), and this Service Principal serves as the identity that GitHub uses for authentication.
 
-#### Step 2 - Create a Federated Secret under the App Registration
+#### Step 2 - Create a Federated Credential under the App Registration
 
 > Instead of using a Client Secret, this solution uses GitHub OpenID Connect (OIDC) Federation to securely authenticate GitHub Actions with Microsoft Entra ID.>
 
@@ -71,7 +71,7 @@ Continuous Deployment (CD)
 - Uses short-lived tokens generated during workflow execution.
 - Follows Microsoft's recommended authentication approach for GitHub Actions.
 
-#### Step 3 - Grant Contributor Access
+#### Step 3 - Grant Required Azure RBAC Permissions
 
 > The Service Principal must have permissions to deploy Azure Data Factory resources.
 
@@ -92,7 +92,7 @@ Configure the following GitHub Secrets before running the workflow:
 
 #### Step 5 - Build Folder
 
-The build folder contains: _package.json_
+The build folder contains the _package.json_ file and Azure Data Factory build utilities used during validation and ARM template generation.
 
 > GitHub Actions executes npm commands from this location to validate and export ARM templates.
 
@@ -112,7 +112,10 @@ When promoting resources across environments, Integration Runtime names, types, 
 #### Parameterize Environment-Specific Settings
 Resources such as Data Factory names, Key Vault names, endpoints, and connection configurations should be parameterized to enable seamless deployments across multiple environments.
 
-Store secrets in environment-specific Azure Key Vaults and reference them through deployment parameters. Keeping secret names consistent across environments simplifies deployment and reduces configuration complexity.
+Keeping secret names consistent across environments simplifies deployment and reduces configuration complexity.
+
+#### Use GitHub Secrets
+Store environment-specific configurations, identifiers, and sensitive values in GitHub Secrets or Azure Key Vault rather than directly in the workflow definition.
 
 #### Include Global Parameters in ARM Templates
 Global Parameters should be included in ARM template deployments to ensure configuration consistency across environments and simplify CI/CD implementations. 
@@ -143,6 +146,14 @@ ADF resources are highly interconnected. Pipelines, datasets, triggers, and link
 
 ---
 
+## Repository Structure
+
+.github/workflows
+   └─ adf-general-arm-deploy.yml
+build/
+   └─ package.json
+
+
 ## How to Use This Project
 
 #### Step 1 - Configure Azure Data Factory with GitHub
@@ -152,7 +163,7 @@ Create a GitHub repository and configure it as the source control repository for
 Navigate to **Actions** in your GitHub repository and create a new workflow.
 
 #### Step 3 - Import the Deployment Workflow
-Copy the file:
+Copy or download the workflow file:
 
 ```text
 .github/workflows/adf-general-arm-deploy.yml
