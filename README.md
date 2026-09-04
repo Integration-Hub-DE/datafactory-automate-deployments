@@ -149,11 +149,10 @@ ADF resources are highly interconnected. Pipelines, datasets, triggers, and link
 ## Repository Structure
 
 ```text
- ├── .github
- │ └── workflows
- │ └── adf-general-arm-deploy.yml
+ ├── .github/workflows
+ │      └── adf-general-arm-deploy.yml
  ├── build
- │ └── package.json
+ │      └── package.json
  └── README.md
 ```
 
