@@ -146,15 +146,12 @@ ADF resources are highly interconnected. Pipelines, datasets, triggers, and link
 ## How to Use This Project
 
 #### Step 1 - Configure Azure Data Factory with GitHub
-
 Create a GitHub repository and configure it as the source control repository for your Azure Data Factory.
 
-### Step 2 - Create a GitHub Actions Workflow
-
+#### Step 2 - Create a GitHub Actions Workflow
 Navigate to **Actions** in your GitHub repository and create a new workflow.
 
-### Step 3 - Import the Deployment Workflow
-
+#### Step 3 - Import the Deployment Workflow
 Copy the file:
 
 ```text
@@ -169,8 +166,7 @@ from this repository and add it to:
 
 Update the workflow configuration, GitHub Secrets, Azure resources, and other parameters as described in the previous sections of this document.
 
-### Step 4 - Start Deploying
-
+#### Step 4 - Start Deploying
 Commit and push your changes to the configured collaboration branch.
 
 If deployment approvals are configured through GitHub Environments, the workflow will pause and wait for the designated reviewer(s) to approve the deployment before proceeding with the Continuous Delivery stage.
