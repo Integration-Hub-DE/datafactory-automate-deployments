@@ -21,7 +21,7 @@ jobs:
 # -------------------
 
   Continuous-Integration:
-    name: Validate and Generate ARM Template from Source ADF
+    name: Validate and Generate ARM Template
     runs-on: windows-latest            # The type of runner that the job will run on
 
     steps:                             # Steps represent a sequence of tasks that will be executed as part of the job
@@ -55,10 +55,11 @@ jobs:
 # -------------------
 
   Continuous-Delivery:
-
+    name: Deploy General ARM Templates
     needs: Continuous-Integration
-  
     runs-on: windows-latest
+
+    environment: Production            # This is added for the approval process
   
     steps:
   
