@@ -57,9 +57,12 @@ Continuous Deployment (CD)
  - Repository → Enter the repository name
  - Repository ID → Retrieve this from _https://api.github.com/repos/<Organization_Name>/<Repository_Name>_ and look for the 'id' field.
  - If you receive an error and cannot retrieve the Repository ID → This may occur if you are using a personal GitHub account or if the repository is set to Private. Temporarily change the repository visibility from Private to Public, complete the required configuration, and then change the repository visibility back to Private.
-- Entity Type (when configuring deployment without permission for the Prod env) → Select Branch from the dropdown and enter the collaboration branch name in the next field.
-- Entity Type (When configuring deployment with permission for the Prod env) → Select Environment from the dropdown and enter the environment name in the next field.
-- When configuring deployment with permission for the Prod env → Create an env with the same name under Repository Settings > Environments.
+- Entity Type (When approvals are not configured through GitHub Environments) → Select Branch from the dropdown and enter the collaboration branch name in the next field.
+- Entity Type (When approvals are configured through GitHub Environments) → Select Environment from the dropdown and enter the environment name in the next field.
+
+
+- When deployment approvals are enabled through GitHub Environments, create an Environment with the same name referenced in the workflow (for example, `Production`) under: Repository Settings → Environments
+- Configure the required reviewers and protection rules. The workflow will pause before the Continuous Delivery stage and wait for approval before deploying to the destination Azure Data Factory.
 
 ##### Benefits of using Federated Credentials:
 
