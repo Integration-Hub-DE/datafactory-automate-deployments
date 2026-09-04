@@ -34,7 +34,7 @@ Continuous Deployment (CD)
 
 - Azure Data Factory using Git integration
 - GitHub repository connected to ADF
-- Service Principal with Contributor access
+- Service Principal with eequired Azure RBAC permissions
 - build folder containing package.json
 - ARM template generation enabled
 
