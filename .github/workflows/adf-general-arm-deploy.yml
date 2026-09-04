@@ -1,27 +1,30 @@
+name: ADF CI-CD using General ARM Templates
+
 # Controls when the workflow will run
-on:
-  # Triggers the workflow on push or pull request events but only for the "<branch-name>" branch
+
+on:                                    # Triggers the workflow on push or pull request events but only for the "<branch-name>" branch
   push:
     branches: [ "<branch-name>" ]
   pull_request:
     branches: [ "<branch-name>" ]
   
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
+  workflow_dispatch:                   # Allows you to run this workflow manually from the Actions tab
 
 permissions:
   id-token: write
   contents: read
   
 jobs:
+
 # -------------------
 # CI Stage - Validate and Generate ARM Template from Source ADF
-# -------------------  
-  Continuous-Integration:
-    runs-on: windows-latest # The type of runner that the job will run on
+# -------------------
 
-    steps: # Steps represent a sequence of tasks that will be executed as part of the job
-      - uses: actions/checkout@v4 # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+  Continuous-Integration:
+    runs-on: windows-latest            # The type of runner that the job will run on
+
+    steps:                             # Steps represent a sequence of tasks that will be executed as part of the job
+      - uses: actions/checkout@v4      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
 
       #- name: Setup Node.js
       #  uses: actions/setup-node@v4
